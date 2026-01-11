@@ -123,9 +123,6 @@ export const studies: Study[] = [
 ];
 
 // 통계 함수들
-export function getTotalStudies(): number {
-  return studies.length;
-}
 
 export function getActiveStudies(): number {
   return studies.filter(study => study.status === 'active').length;
