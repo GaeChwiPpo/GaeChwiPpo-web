@@ -17,9 +17,12 @@ import {
   Building,
   MessageCircle,
   Heart,
+  BookOpen,
+  Award,
 } from 'lucide-react';
 import Link from 'next/link';
 import { speakers, getTotalSpeakers, getTotalSessions } from '@/data/speakers';
+import { studies } from '@/data/studies';
 import CommunityChannels from '@/components/community-channels';
 import { SpeakerAvatar } from '@/components/speaker-avatar';
 import NewsletterSubscription from '@/components/newsletter-subscription';
@@ -56,6 +59,12 @@ export default function HomePage() {
                 className="text-gray-300 hover:text-white transition-colors"
               >
                 연사 정보
+              </Link>
+              <Link
+                href="#studies"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                스터디 활동
               </Link>
               <Link
                 href="#activities"
@@ -478,6 +487,188 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Study Activities Section */}
+        <section
+          id="studies"
+          className="py-20 px-4"
+          aria-labelledby="studies-heading"
+        >
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2
+                id="studies-heading"
+                className="text-3xl md:text-4xl font-bold text-white mb-4"
+              >
+                스터디 활동
+              </h2>
+              <p className="text-xl text-gray-300">
+                함께 성장하는 개취뽀 스터디에 참여하세요
+              </p>
+            </div>
+
+            {studies.length > 0 ? (
+              <>
+                <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-5xl mx-auto">
+                  {studies.map(study => (
+                    <Link href={`/studies/${study.id}`} key={study.id}>
+                      <article className="bg-gray-800/50 border-gray-700 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 h-full rounded-lg border cursor-pointer">
+                        <div className="p-6">
+                          {/* Study Header */}
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-3">
+                                <Badge
+                                  variant="outline"
+                                  className={
+                                    study.status === 'active'
+                                      ? 'bg-green-500/20 text-green-300 border-green-500/50'
+                                      : study.status === 'recruiting'
+                                        ? 'bg-blue-500/20 text-blue-300 border-blue-500/50'
+                                        : 'bg-gray-500/20 text-gray-300 border-gray-500/50'
+                                  }
+                                >
+                                  {study.status === 'active'
+                                    ? '진행중'
+                                    : study.status === 'recruiting'
+                                      ? '모집중'
+                                      : '완료'}
+                                </Badge>
+                                <Badge
+                                  variant="outline"
+                                  className="text-purple-300 border-purple-500/50 bg-purple-500/20"
+                                >
+                                  {study.category}
+                                </Badge>
+                              </div>
+                              <h3 className="font-bold text-white text-xl mb-3">
+                                {study.name}
+                              </h3>
+                            </div>
+                          </div>
+
+                          {/* Study Info */}
+                          <div className="flex flex-wrap gap-x-4 gap-y-2 text-gray-300 text-sm mb-4">
+                            <div className="flex items-center">
+                              <Calendar
+                                className="h-4 w-4 mr-2 text-blue-400"
+                                aria-hidden="true"
+                              />
+                              <span>{study.period}</span>
+                            </div>
+                            <div className="flex items-center">
+                              <Users
+                                className="h-4 w-4 mr-2 text-blue-400"
+                                aria-hidden="true"
+                              />
+                              <span>참여자 {study.participants}명</span>
+                            </div>
+                            {study.schedule && (
+                              <div className="flex items-center">
+                                <BookOpen
+                                  className="h-4 w-4 mr-2 text-blue-400"
+                                  aria-hidden="true"
+                                />
+                                <span>{study.schedule}</span>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {study.tags.slice(0, 4).map((tag, index) => (
+                              <Badge
+                                key={index}
+                                variant="secondary"
+                                className="text-xs bg-blue-500/20 text-blue-300 border-blue-500/30"
+                              >
+                                {tag}
+                              </Badge>
+                            ))}
+                          </div>
+
+                          {/* Description */}
+                          <p className="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-3">
+                            {study.description}
+                          </p>
+
+                          {/* Achievements */}
+                          {study.achievements &&
+                            study.achievements.length > 0 && (
+                              <div className="mb-4 bg-gray-900/30 rounded-lg p-3">
+                                <h4 className="font-medium text-white text-sm mb-2 flex items-center">
+                                  <Award className="h-4 w-4 mr-1 text-yellow-400" />
+                                  주요 성과
+                                </h4>
+                                <ul className="space-y-1">
+                                  {study.achievements
+                                    .slice(0, 2)
+                                    .map((achievement, index) => (
+                                      <li
+                                        key={index}
+                                        className="text-gray-400 text-xs flex items-start"
+                                      >
+                                        <span className="text-yellow-400 mr-2">
+                                          ✓
+                                        </span>
+                                        <span>{achievement}</span>
+                                      </li>
+                                    ))}
+                                </ul>
+                              </div>
+                            )}
+                        </div>
+                      </article>
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="text-center bg-gray-800/30 rounded-xl p-8 max-w-3xl mx-auto">
+                  <h3 className="text-2xl font-bold text-white mb-4">
+                    스터디를 개설하고 싶으신가요?
+                  </h3>
+                  <p className="text-gray-300 mb-6">
+                    개취뽀 커뮤니티에서 함께 공부할 멤버들을 모집해보세요.
+                  </p>
+                  <div className="flex flex-wrap gap-4 justify-center">
+                    <a
+                      href="https://open.kakao.com/o/gPI6kTUg"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button className="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-semibold">
+                        카카오톡 오픈채팅
+                      </Button>
+                    </a>
+                    <a
+                      href="https://discord.gg/X74q5Yw3Sv"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Button
+                        variant="outline"
+                        className="border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white"
+                      >
+                        디스코드 채널
+                      </Button>
+                    </a>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="text-center py-16">
+                <BookOpen className="h-16 w-16 text-gray-600 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-400 mb-2">
+                  진행중인 스터디가 없습니다
+                </h3>
+                <p className="text-gray-500">
+                  곧 새로운 스터디가 시작될 예정입니다. 커뮤니티 채널에서 소식을
+                  확인하세요!
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Community Channels Section */}
         <section
           id="community"
@@ -701,6 +892,14 @@ export default function HomePage() {
                     className="hover:text-white transition-colors"
                   >
                     연사 정보
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#studies"
+                    className="hover:text-white transition-colors"
+                  >
+                    스터디 활동
                   </Link>
                 </li>
                 <li>
