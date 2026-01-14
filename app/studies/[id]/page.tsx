@@ -10,7 +10,11 @@ import {
   Award,
   ExternalLink,
 } from 'lucide-react';
-import { getStudyById } from '@/data/studies';
+import {
+  getStudyById,
+  getGithubAvatarUrl,
+  getGithubProfileUrl,
+} from '@/data/studies';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -289,8 +293,9 @@ const StudyPage = async ({ params }: StudyPageProps) => {
                         <div className="flex items-start space-x-3">
                           <img
                             src={
-                              participant.avatar ||
-                              '/speakers/default-avatar.png'
+                              participant.githubId
+                                ? getGithubAvatarUrl(participant.githubId)
+                                : '/speakers/default-avatar.png'
                             }
                             alt={participant.name}
                             className="w-12 h-12 rounded-full border-2 border-blue-500"
@@ -314,9 +319,9 @@ const StudyPage = async ({ params }: StudyPageProps) => {
                                 {participant.bio}
                               </p>
                             )}
-                            {participant.github && (
+                            {participant.githubId && (
                               <a
-                                href={participant.github}
+                                href={getGithubProfileUrl(participant.githubId)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-xs text-blue-400 hover:underline mt-1 inline-block"
@@ -350,7 +355,9 @@ const StudyPage = async ({ params }: StudyPageProps) => {
                           <div className="flex items-center space-x-3">
                             <img
                               src={
-                                review.avatar || '/speakers/default-avatar.png'
+                                review.githubId
+                                  ? getGithubAvatarUrl(review.githubId)
+                                  : '/speakers/default-avatar.png'
                               }
                               alt={review.author}
                               className="w-10 h-10 rounded-full"

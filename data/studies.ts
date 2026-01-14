@@ -1,14 +1,13 @@
 export interface StudyParticipant {
   name: string;
   role: string;
-  avatar?: string;
-  github?: string;
+  githubId?: string;
   bio?: string;
 }
 
 export interface StudyReview {
   author: string;
-  avatar?: string;
+  githubId?: string;
   date: string;
   content: string;
 }
@@ -57,63 +56,58 @@ export const studies: Study[] = [
       {
         name: '엽용현',
         role: '스터디장',
-        avatar: 'https://github.com/raymondanythings.png',
-        github: 'https://github.com/raymondanythings',
+        githubId: 'raymondanythings',
       },
       {
         name: '유영민',
         role: '참여자',
-        avatar: 'https://github.com/yu-ratel.png',
-        github: 'https://github.com/yu-ratel',
+        githubId: 'yu-ratel',
       },
       {
         name: '주유나',
         role: '참여자',
-        avatar: 'https://github.com/YounaJ00.png',
-        github: 'https://github.com/YounaJ00',
+        githubId: 'YounaJ00',
       },
       {
         name: '양현빈',
         role: '참여자',
-        avatar: 'https://github.com/YangHyeonBin.png',
-        github: 'https://github.com/YangHyeonBin',
+        githubId: 'YangHyeonBin',
       },
       {
         name: '김동현',
         role: '참여자',
-        avatar: 'https://github.com/donghyun1998.png',
-        github: 'https://github.com/donghyun1998',
+        githubId: 'donghyun1998',
       },
     ],
     reviews: [
       {
         author: '엽용현',
-        avatar: 'https://github.com/raymondanythings.png',
+        githubId: 'raymondanythings',
         date: '2025년 12월',
         content: '다들 넘 잘하셔서 저또한 많이 배운것 같아요',
       },
       {
         author: '유영민',
-        avatar: 'https://github.com/yu-ratel.png',
+        githubId: 'yu-ratel',
         date: '2025년 12월',
         content: '너무 유익한 시간이었습니다 감사합니다!!',
       },
       {
         author: '주유나',
-        avatar: 'https://github.com/YounaJ00.png',
+        githubId: 'YounaJ00',
         date: '2025년 12월',
         content: '매 세션마다 진짜 배운게 많았습니다!!! 정말 감사드려요!!',
       },
       {
         author: '양현빈',
-        avatar: 'https://github.com/YangHyeonBin.png',
+        githubId: 'YangHyeonBin',
         date: '2025년 12월',
         content:
           '이렇게 스터디 기회 마련해주신 덕분에 한달동안 정말! 많이 배웠습니다!! 과제 소스 주시고 매주 스터디 이끌어주신 용현님, 자기만의 코드 철학을 많이 공유해주신 동현님, 또 다른 코드 작성 방식과 다양한 의견 내주신 영민님, 열심히 참여하고 배우고 질문하면서 성장하는 모습 보여주신 유나님 모두 한달동안 고생 많으셨고 감사해요!',
       },
       {
         author: '김동현',
-        avatar: 'https://github.com/donghyun1998.png',
+        githubId: 'donghyun1998',
         date: '2025년 12월',
         content:
           '1달동안 넘 재밌었습니당 월요일 저녁에 늦은 시간에 진행했는데도 다들 열정 안꺼지고 적극적으로 참여하셔서 더 재미있었습니다!!',
@@ -122,7 +116,13 @@ export const studies: Study[] = [
   },
 ];
 
-// 통계 함수들
+export function getGithubAvatarUrl(githubId: string): string {
+  return `https://github.com/${githubId}.png`;
+}
+
+export function getGithubProfileUrl(githubId: string): string {
+  return `https://github.com/${githubId}`;
+}
 
 export function getActiveStudies(): number {
   return studies.filter(study => study.status === 'active').length;
