@@ -60,6 +60,12 @@ const SpeakerPage = async ({ params }: SpeakerPageProps) => {
                 연사 정보
               </Link>
               <Link
+                href="/#studies"
+                className="text-gray-300 hover:text-white transition-colors"
+              >
+                스터디 활동
+              </Link>
+              <Link
                 href="/#activities"
                 className="text-gray-300 hover:text-white transition-colors"
               >
@@ -301,6 +307,14 @@ const SpeakerPage = async ({ params }: SpeakerPageProps) => {
                     className="hover:text-white transition-colors"
                   >
                     연사 정보
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/#studies"
+                    className="hover:text-white transition-colors"
+                  >
+                    스터디 활동
                   </Link>
                 </li>
                 <li>

@@ -34,6 +34,11 @@
 
 ## 개발 환경 설정
 
+해당 프로젝트는 pnpm을 필수 설치가 필요합니다. 만약 pnpm 설치가 안되어 있다면 Homebrew를 통해 설치를 우선 진행해주세요 
+```bash
+brew install pnpm
+```
+
 1. 저장소 클론
 ```bash
 git clone https://github.com/your-username/gaechwippo-web.git
@@ -41,12 +46,12 @@ git clone https://github.com/your-username/gaechwippo-web.git
 
 2. 의존성 설치
 ```bash
-npm install
+pnpm install
 ```
 
 3. 개발 서버 실행
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## 라이선스
