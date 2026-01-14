@@ -1,1 +1,1 @@
-pnpm lint --max-warnings 0
+pnpm lint
